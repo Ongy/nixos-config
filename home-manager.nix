@@ -136,7 +136,7 @@ in
         Service = { ExecStart = "/home/ongy/.nix-profile/bin/firefox"; };
         Install = { WantedBy = ["sway-session.target"]; };
       };
-      chromiume = {
+      chromium = {
         Unit = {
           Description = "Chromium browser instance";
           After = ["graphical-session.target"];
