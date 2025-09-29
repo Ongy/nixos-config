@@ -85,6 +85,8 @@ in
       userEmail = "ongyerth@google.com";
       extraConfig = {
         safe.directory = "/etc/nixos";
+        push.autoSetupRemote = "true";
+        push.default = "upstream";
       };
     };
   
