@@ -84,6 +84,7 @@
     steam-run
   ];
 
+  programs.vim.defaultEditor = true;
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
