@@ -16,6 +16,20 @@ in
     home.stateVersion="25.05";
     home.packages = with pkgs; [
       (writeShellScriptBin "alacritty-session" "systemd-run --user alacritty")
+      (writeShellScriptBin "screen-rotator" ''
+/run/current-system/sw/bin/monitor-sensor --accel |  while read line; do echo
+  case ''$(echo "''${line}" | /run/current-system/sw/bin/cut -d ':' -f 2 | /run/current-system/sw/bin/tr -d ' ') in
+    normal)
+      /home/ongy/.nix-profile/bin/swaymsg output eDP-1 transform 0 ;;
+    right-up)
+      /home/ongy/.nix-profile/bin/swaymsg output eDP-1 transform 90 ;;
+    bottom-up)
+      /home/ongy/.nix-profile/bin/swaymsg output eDP-1 transform 180 ;;
+    left-up)
+      /home/ongy/.nix-profile/bin/swaymsg output eDP-1 transform 270 ;;
+  esac
+done
+'')
       swaybg
       mosh
 
@@ -46,6 +60,17 @@ in
     wayland.windowManager.sway = {
       enable = true;
       systemd.enable = true;
+      systemd.variables = [
+        "DISPLAY"
+        "WAYLAND_DISPLAY"
+        "SWAYSOCK"
+        "XDG_CURRENT_DESKTOP"
+        "XDG_SESSION_TYPE"
+        "NIXOS_OZONE_WL"
+        "XCURSOR_THEME"
+        "XCURSOR_SIZE"
+        "SWAYSOCK"
+      ];
       config = rec {
          modifier = "Mod4";
          terminal = "alacritty-session";
@@ -144,6 +169,14 @@ in
           After = ["graphical-session.target"];
         };
         Service = { ExecStart = "/home/ongy/.nix-profile/bin/chromium-browser"; };
+        Install = { WantedBy = ["sway-session.target"]; };
+      };
+      screen-rotator = {
+        Unit = {
+          Description = "Utility to trigger screen rotation on physical rotation";
+          After = ["graphical-session.target"];
+        };
+        Service = { ExecStart = "/home/ongy/.nix-profile/bin/screen-rotator"; };
         Install = { WantedBy = ["sway-session.target"]; };
       };
     };
