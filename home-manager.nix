@@ -56,7 +56,7 @@ in
          };
          menu = "${pkgs.dmenu}/bin/dmenu_path | ${pkgs.dmenu}/bin/dmenu | ${pkgs.findutils}/bin/xargs systemd-run --user --";
          keybindings = let
-           modifier = config.wayland.windowManager.sway.config.modifier;
+           modifier = "Mod4";
          in lib.mkOptionDefault {
            "XF86MonBrightnessUp"   = "exec brightnessctl set 5%+";
            "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
@@ -65,6 +65,8 @@ in
            "XF86AudioLowerVolume"  = "exec 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-'";
            "XF86AudioMute"         = "exec 'wpctl set-mute @DEFAULT_SINK@ toggle'";
 
+           "${modifier}+greater"     = "move workspace to output right";
+           "${modifier}+less"        = "move workspace to output left";
          };
          keycodebindings = let
            modifier = config.wayland.windowManager.sway.config.modifier;
