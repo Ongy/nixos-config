@@ -9,6 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./home-manager.nix
+      <nixos-hardware/framework/12-inch/13th-gen-intel>
+      ./hardware-configuration.nix
     ];
 
   # Bootloader.
@@ -76,6 +78,7 @@
     python3
 
     mtr
+    framework-tool
 
     libinput
     sway
