@@ -33,6 +33,7 @@ done
       swaybg
       mosh
       squeekboard
+      xss-lock
 
       grim
       slurp
@@ -178,6 +179,16 @@ done
           After = ["graphical-session.target"];
         };
         Service = { ExecStart = "/home/ongy/.nix-profile/bin/screen-rotator"; };
+        Install = { WantedBy = ["sway-session.target"]; };
+      };
+      swaylock = {
+        Unit = {
+          Description = "Lock the screen";
+          After = ["graphical-session.target"];
+        };
+        Service = {
+          ExecStart = "${pkgs.xss-lock}/bin/xss-lock -- ${pkgs.swaylock}/bin/swaylock --color 001100 --show-failed-attempts --image \${HOME}/background.png --scaling center";
+        };
         Install = { WantedBy = ["sway-session.target"]; };
       };
     };
