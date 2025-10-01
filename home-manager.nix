@@ -32,6 +32,7 @@ done
 '')
       swaybg
       mosh
+      squeekboard
 
       grim
       slurp
