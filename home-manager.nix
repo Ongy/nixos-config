@@ -57,6 +57,11 @@ done
 
       (import ./notifiers.nix)
     ];
+    home.sessionVariables = {
+      QT_QPA_PLATFORM="wayland";
+      QT_IM_MODULE="fcitx";
+      GTK_IM_MODULE="fcitx";
+    };
 
     wayland.systemd.target = "sway-session.target";
     wayland.windowManager.sway = {
@@ -71,7 +76,10 @@ done
         "NIXOS_OZONE_WL"
         "XCURSOR_THEME"
         "XCURSOR_SIZE"
-        "SWAYSOCK"
+
+        "QT_QPA_PLATFORM"
+        "QT_IM_MODULE"
+        "GTK_IM_MODULE"
       ];
       config = rec {
          modifier = "Mod4";
@@ -188,6 +196,16 @@ done
         };
         Service = {
           ExecStart = "${pkgs.xss-lock}/bin/xss-lock -- ${pkgs.swaylock}/bin/swaylock --color 001100 --show-failed-attempts --image \${HOME}/background.png --scaling center";
+        };
+        Install = { WantedBy = ["sway-session.target"]; };
+      };
+      fcitx5 = {
+        Unit = {
+          Description = "Provide the input method";
+          After = ["graphical-session.target"];
+        };
+        Service = {
+          ExecStart = "/run/current-system/sw/bin/fcitx5";
         };
         Install = { WantedBy = ["sway-session.target"]; };
       };

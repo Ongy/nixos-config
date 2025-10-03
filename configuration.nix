@@ -151,5 +151,18 @@
     mode = "0444";
   };
 
+  # This is required for steam
   hardware.graphics.enable32Bit = true;
+
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5.waylandFrontend = true;
+    fcitx5.addons = with pkgs; [
+      fcitx5-gtk
+      libsForQt5.fcitx5-qt
+      kdePackages.fcitx5-qt
+      fcitx5-mozc
+    ];
+  };
 }
