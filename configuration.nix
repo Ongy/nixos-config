@@ -76,6 +76,7 @@
     python3
 
     mtr
+    htop
     framework-tool
 
     libinput
