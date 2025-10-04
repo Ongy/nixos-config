@@ -144,6 +144,9 @@
     enable = true;
     user = "ongy";
   };
+  services.logind.extraConfig = ''
+    HandlePowerKey=suspend
+  '';
 
   # required for buildah...
   environment.etc."containers/policy.json" = {
