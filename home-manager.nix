@@ -1,4 +1,7 @@
 { config, pkgs, lib, ... }:
+let
+  desktop-notifiers = (pkgs.callPackage ./notifiers.nix {});
+in
 {
     home.stateVersion="25.05";
     home.packages = with pkgs; [
@@ -42,7 +45,7 @@ done
 
       buildah
 
-      (callPackage ./notifiers.nix {})
+      desktop-notifiers   
     ];
     home.sessionVariables = {
       QT_QPA_PLATFORM="wayland";
@@ -125,7 +128,7 @@ done
           Description = "Background image";
           After = ["graphical-session.target"];
         };
-        Service = { ExecStart = "/home/ongy/.nix-profile/bin/swaybg --mode fit --image \${HOME}/background.png"; };
+        Service = { ExecStart = "${pkgs.swaybg}/bin/swaybg --mode fit --image \${HOME}/background.png"; };
         Install = { WantedBy = ["sway-session.target"]; };
       };
       volume-notifier = {
@@ -133,7 +136,7 @@ done
           Description = "Volume change notification daemone";
           After = ["graphical-session.target"];
         };
-        Service = { ExecStart = "/home/ongy/.nix-profile/bin/audio-notifier"; };
+        Service = { ExecStart = "${desktop-notifiers}/bin/audio-notifier"; };
         Install = { WantedBy = ["sway-session.target"]; };
       };
       brightness-notifier = {
@@ -141,7 +144,7 @@ done
           Description = "Brightness notifier";
           After = ["graphical-session.target"];
         };
-        Service = { ExecStart = "/home/ongy/.nix-profile/bin/brightness-notifier"; };
+        Service = { ExecStart = "${desktop-notifiers}/bin/brightness-notifier"; };
         Install = { WantedBy = ["sway-session.target"]; };
       };
       qutebrowser = {
@@ -149,7 +152,7 @@ done
           Description = "Primary browser instance";
           After = ["graphical-session.target"];
         };
-        Service = { ExecStart = "/home/ongy/.nix-profile/bin/qutebrowser"; };
+        Service = { ExecStart = "${pkgs.qutebrowser}/bin/qutebrowser"; };
         Install = { WantedBy = ["sway-session.target"]; };
       };
       firefox-session = {
@@ -157,7 +160,7 @@ done
           Description = "Firefox browser instance";
           After = ["graphical-session.target"];
         };
-        Service = { ExecStart = "/home/ongy/.nix-profile/bin/firefox"; };
+        Service = { ExecStart = "${pkgs.firefox}/bin/firefox"; };
         Install = { WantedBy = ["sway-session.target"]; };
       };
       chromium = {
@@ -165,7 +168,7 @@ done
           Description = "Chromium browser instance";
           After = ["graphical-session.target"];
         };
-        Service = { ExecStart = "/home/ongy/.nix-profile/bin/chromium-browser"; };
+        Service = { ExecStart = "${pkgs.chromium}/bin/chromium-browser"; };
         Install = { WantedBy = ["sway-session.target"]; };
       };
       screen-rotator = {
@@ -173,7 +176,7 @@ done
           Description = "Utility to trigger screen rotation on physical rotation";
           After = ["graphical-session.target"];
         };
-        Service = { ExecStart = "/home/ongy/.nix-profile/bin/screen-rotator"; };
+        Service = { ExecStart = "/etc/profiles/per-user/ongy/bin/screen-rotator"; };
         Install = { WantedBy = ["sway-session.target"]; };
       };
       swaylock = {
