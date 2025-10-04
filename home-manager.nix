@@ -1,18 +1,5 @@
 { config, pkgs, lib, ... }:
-let
-  home-manager = (builtins.fetchTarball {
-    url = "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
-    sha256 = "0q3lv288xlzxczh6lc5lcw0zj9qskvjw3pzsrgvdh8rl8ibyq75s";
-  });
-in
 {
-  imports = [
-    (import "${home-manager}/nixos")
-  ];
-
-  #tarball-ttl = 86400;
-  home-manager.users.ongy = {
-    nixpkgs.config.allowUnfree = true;
     home.stateVersion="25.05";
     home.packages = with pkgs; [
       (writeShellScriptBin "alacritty-session" "systemd-run --user alacritty")
@@ -55,7 +42,7 @@ done
 
       buildah
 
-      (import ./notifiers.nix)
+      (callPackage ./notifiers.nix {})
     ];
     home.sessionVariables = {
       QT_QPA_PLATFORM="wayland";
@@ -219,5 +206,4 @@ done
         yzhang.markdown-all-in-one
       ];
     };
-  };
 }

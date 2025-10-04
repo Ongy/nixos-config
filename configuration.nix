@@ -8,9 +8,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./home-manager.nix
-      "${builtins.fetchGit { url = "https://github.com/NixOS/nixos-hardware.git"; }}/framework/12-inch/13th-gen-intel"
-      ./hardware-configuration.nix
     ];
 
   # Bootloader.
