@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, options, ... }:
 
 {
   imports =
@@ -146,9 +146,13 @@
     enable = true;
     user = "ongy";
   };
+
   services.logind.extraConfig = ''
     HandlePowerKey=suspend
   '';
+#   services.logind.settings.Login = {
+#     HandlePowerKey="suspend";
+#   };
 
   # required for buildah...
   environment.etc."containers/policy.json" = {
