@@ -14,6 +14,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.tmp.useTmpfs = true;
+  boot.bootspec.enable = true;
+  boot.initrd.systemd.enable = true;
 
   networking.hostName = "ongy-nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -56,8 +58,7 @@
   users.users.ongy = {
     isNormalUser = true;
     description = "Markus Ongyerth";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    extraGroups = [ "networkmanager" "wheel" "tss" ];
   };
 
   # Allow unfree packages
@@ -143,7 +144,7 @@
   services.xserver.enable = true;
   services.displayManager.enable = true;
   services.displayManager.autoLogin = {
-    enable = true;
+    enable = false;
     user = "ongy";
   };
 
@@ -173,5 +174,11 @@
       kdePackages.fcitx5-qt
       fcitx5-mozc
     ];
+  };
+
+  security.tpm2 = {
+    enable = true;
+    pkcs11.enable = true;  # expose /run/current-system/sw/lib/libtpm2_pkcs11.so
+    tctiEnvironment.enable = true;  # TPM2TOOLS_TCTI and TPM2_PKCS11_TCTI env variables
   };
 }
