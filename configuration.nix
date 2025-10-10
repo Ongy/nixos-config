@@ -147,7 +147,12 @@
     enable = false;
     user = "ongy";
   };
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      epson-escpr
+    ];
+  };
 
   services.logind.extraConfig = ''
     HandlePowerKey=suspend
@@ -186,13 +191,13 @@
   hardware.printers = {
     ensurePrinters = [
       {
-        name = "Brother_XP-7100";
+        name = "EPSON_XP-7100_Series";
         location = "Home";
         deviceUri = "lpd://192.168.3.200:515/PASSTHRU";
-        model = "drv:///sample.drv/generic.ppd";
+        model = "epson-inkjet-printer-escpr/Epson-XP-7100_Series-epson-escpr-en.ppd";
       }
     ];
-    ensureDefaultPrinter = "Brother_XP-7100";
+    ensureDefaultPrinter = "EPSON_XP-7100_Series";
   };
 
 }
