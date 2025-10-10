@@ -147,6 +147,7 @@
     enable = false;
     user = "ongy";
   };
+  services.printing.enable = true;
 
   services.logind.extraConfig = ''
     HandlePowerKey=suspend
@@ -181,4 +182,17 @@
     pkcs11.enable = true;  # expose /run/current-system/sw/lib/libtpm2_pkcs11.so
     tctiEnvironment.enable = true;  # TPM2TOOLS_TCTI and TPM2_PKCS11_TCTI env variables
   };
+
+  hardware.printers = {
+    ensurePrinters = [
+      {
+        name = "Brother_XP-7100";
+        location = "Home";
+        deviceUri = "lpd://192.168.3.200:515/PASSTHRU";
+        model = "drv:///sample.drv/generic.ppd";
+      }
+    ];
+    ensureDefaultPrinter = "Brother_XP-7100";
+  };
+
 }
