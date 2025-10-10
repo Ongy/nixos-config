@@ -36,6 +36,7 @@ done
       chromium
       qutebrowser
 
+      anki
       libreoffice
   
       bitwarden
@@ -121,6 +122,10 @@ done
       enable = true;
     };
     programs.swaylock.enable = true;
+    programs.obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [];
+    };
 
     systemd.user.services = {
       swaybg = {
