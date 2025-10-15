@@ -10,13 +10,13 @@ in
 /run/current-system/sw/bin/monitor-sensor --accel |  while read line; do echo
   case ''$(echo "''${line}" | /run/current-system/sw/bin/cut -d ':' -f 2 | /run/current-system/sw/bin/tr -d ' ') in
     normal)
-      /home/ongy/.nix-profile/bin/swaymsg output eDP-1 transform 0 ;;
+      ${pkgs.sway}/bin/swaymsg output eDP-1 transform 0 ;;
     right-up)
-      /home/ongy/.nix-profile/bin/swaymsg output eDP-1 transform 90 ;;
+      ${pkgs.sway}/bin/swaymsg output eDP-1 transform 90 ;;
     bottom-up)
-      /home/ongy/.nix-profile/bin/swaymsg output eDP-1 transform 180 ;;
+      ${pkgs.sway}/bin/swaymsg output eDP-1 transform 180 ;;
     left-up)
-      /home/ongy/.nix-profile/bin/swaymsg output eDP-1 transform 270 ;;
+      ${pkgs.sway}/bin/swaymsg output eDP-1 transform 270 ;;
   esac
 done
 '')
@@ -35,6 +35,7 @@ done
       firefox
       chromium
       qutebrowser
+      google-chrome
 
       anki
       libreoffice
