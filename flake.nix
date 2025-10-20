@@ -50,5 +50,11 @@
         })
       ];
     };
+    nixosConfigurations.pi = nixpkgs.lib.nixosSystem {
+      system = "aarch64-linux";
+      modules = [
+        ./configuration-pi.nix
+      ];
+    };
   };
 }
