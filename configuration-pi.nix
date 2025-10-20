@@ -3,6 +3,7 @@
 {
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
+    kernelParams = [ "snd_bcm2835.enable_hdmi=1" "snd_bcm2835.enable_headphones=1" ];
     initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
     loader = {
       grub.enable = false;

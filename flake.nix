@@ -56,6 +56,7 @@
         ./configuration-pi.nix
         ./common.nix
         ./server.nix
+        ./squeezelite.nix
 
         {
           networking = {
