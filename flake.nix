@@ -55,6 +55,13 @@
       modules = [
         ./configuration-pi.nix
         ./common.nix
+        ./server.nix
+
+        {
+          networking = {
+            hostName = "pi";
+          };
+        }
       ];
     };
   };
