@@ -54,6 +54,7 @@
       system = "aarch64-linux";
       modules = [
         ./configuration-pi.nix
+        ./common.nix
       ];
     };
   };

@@ -26,7 +26,7 @@ in {
     hostName = hostname;
   };
 
-  environment.systemPackages = with pkgs; [ vim  git ];
+  environment.systemPackages = with pkgs; [ git ];
 
   services.openssh.enable = true;
 
