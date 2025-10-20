@@ -9,6 +9,7 @@
     };
   };
 
+  users.mutableUsers = false;
   security.sudo.wheelNeedsPassword = false;
   # Servers mainly operate on root.
   # They only allow ssh on non-root, but most interaction is expected as root.

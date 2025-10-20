@@ -36,33 +36,11 @@
     };
   };
 
-  networking.hostName = "ongy-nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Enable networking
   networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "de_DE.UTF-8";
-    LC_IDENTIFICATION = "de_DE.UTF-8";
-    LC_MEASUREMENT = "de_DE.UTF-8";
-    LC_MONETARY = "de_DE.UTF-8";
-    LC_NAME = "de_DE.UTF-8";
-    LC_NUMERIC = "de_DE.UTF-8";
-    LC_PAPER = "de_DE.UTF-8";
-    LC_TELEPHONE = "de_DE.UTF-8";
-    LC_TIME = "de_DE.UTF-8";
-  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -74,29 +52,18 @@
   console.keyMap = "us-acentos";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.mutableUsers = true;
   users.users.ongy = {
-    isNormalUser = true;
-    description = "Markus Ongyerth";
-    extraGroups = [ "networkmanager" "wheel" "tss" ];
+    extraGroups = [ "networkmanager" "tss" ];
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  nix.extraOptions = ''
-    tarball-ttl = 604800
-'';
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    jq
-
     python3
-
-    mtr
-    htop
     framework-tool
 
     libinput
@@ -106,10 +73,6 @@
     steam-run
   ];
 
-  programs.vim = {
-    enable = true;
-    defaultEditor = true;
-  };
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
@@ -123,17 +86,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   fileSystems."/media/home" = {
     device = "//mario.local.ongy.net/shared";

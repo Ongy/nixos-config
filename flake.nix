@@ -18,6 +18,7 @@
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
+        ./common.nix
         nixos-hardware.nixosModules.framework-12-13th-gen-intel
  
         # Manage ongy user stuff
