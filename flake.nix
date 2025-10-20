@@ -62,6 +62,7 @@
           networking = {
             hostName = "pi";
           };
+          services.squeezelite.extraArguments = "-m dc:a6:32:c1:86:62";
         }
       ];
     };
