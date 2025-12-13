@@ -163,4 +163,8 @@
     ensureDefaultPrinter = "EPSON_XP-7100_Series";
   };
 
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
 }
