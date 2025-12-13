@@ -5,6 +5,7 @@ in
 {
     home.stateVersion="25.05";
     home.packages = with pkgs; [
+      (writeShellScriptBin "screenshot" "grim -g \"$(slurp -d)\"")
       (writeShellScriptBin "alacritty-session" "systemd-run --user alacritty")
       (writeShellScriptBin "screen-rotator" ''
 /run/current-system/sw/bin/monitor-sensor --accel |  while read line; do echo
@@ -91,6 +92,8 @@ done
            "XF86AudioRaiseVolume"  = "exec 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+'";
            "XF86AudioLowerVolume"  = "exec 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-'";
            "XF86AudioMute"         = "exec 'wpctl set-mute @DEFAULT_SINK@ toggle'";
+
+           "Print"                 = "exec /etc/profiles/per-user/ongy/bin/screenshot";
 
            "${modifier}+greater"     = "move workspace to output right";
            "${modifier}+less"        = "move workspace to output left";
