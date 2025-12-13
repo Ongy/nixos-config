@@ -49,6 +49,11 @@
             pkiBundle = "/var/lib/sbctl";
           };
         })
+        {
+          networking = {
+            hostName = "ongy-nixos";
+          };
+        }
       ];
     };
     nixosConfigurations.pi = nixpkgs.lib.nixosSystem {
