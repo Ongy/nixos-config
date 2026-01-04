@@ -32,6 +32,7 @@
     htop
 
     tmux
+    dig
   ];
 
   programs.vim = {
