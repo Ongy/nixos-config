@@ -97,6 +97,7 @@ done
 
            "${modifier}+greater"     = "move workspace to output right";
            "${modifier}+less"        = "move workspace to output left";
+           "${modifier}+x"           = "exec ${pkgs.swaylock}/bin/swaylock --color 001100 --show-failed-attempts --image /home/ongy/background.png --scaling center";
          };
          keycodebindings = let
            modifier = config.wayland.windowManager.sway.config.modifier;
