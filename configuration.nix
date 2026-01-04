@@ -167,4 +167,32 @@
     enable = true;
     powerOnBoot = true;
   };
+
+  # Mess with CPU allocations for prioritizing sway
+  systemd.units = {
+    "service" = {
+      overrideStrategy = "asDropin";
+      text  = ''
+      [Service]
+      AllowedCPUs=
+      AllowedCPUs=0-10
+      '';
+    };
+    "user@1000.service" = {
+      overrideStrategy = "asDropin";
+      text  = ''
+      [Service]
+      AllowedCPUs=
+      AllowedCPUs=0-10
+      '';
+    };
+    "session-2.scope" = {
+      overrideStrategy = "asDropin";
+      text  = ''
+      [Scope]
+      AllowedCPUs=
+      AllowedCPUs=11
+      '';
+    };
+  };
 }
