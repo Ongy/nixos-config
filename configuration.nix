@@ -129,6 +129,18 @@
     text = "{\"default\": [{\"type\": \"insecureAcceptAnything\"}]}";
     mode = "0444";
   };
+#   environment.etc."systemd/system-sleep/mute.sh" = {
+#     mode = "0755";
+#     text = ''
+#       #! ${pkgs.runtimeShell}
+# 
+#       case "''${1}" in
+#         pre)
+#           ${pkgs.sudo}/bin/sudo -u ongy ${pkgs.coreutils-full}/bin/env XDG_RUNTIME_DIR=/run/user/1000 $HOME=/home/ongy ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_SINK@ 1
+#         ;;
+#       esac
+# '';
+#   };
 
   # This is required for steam
   hardware.graphics.enable32Bit = true;
@@ -170,6 +182,7 @@
 
   # Mess with CPU allocations for prioritizing sway
   systemd.units = {
+    # this makes sure all system level systemd services do not run on CPU 11
     "service" = {
       overrideStrategy = "asDropin";
       text  = ''
@@ -178,6 +191,7 @@
       AllowedCPUs=0-10
       '';
     };
+    # This homes all user level systemd services and makes sure they are not on CPU 11
     "user@1000.service" = {
       overrideStrategy = "asDropin";
       text  = ''
@@ -186,6 +200,11 @@
       AllowedCPUs=0-10
       '';
     };
+    # session-2.scope is the standard scope fo the user session with lightdm in this config.
+    # I'm not quite sure where it's generated, so for now it's just a match by name.
+    # It does contain sway, and things directly launched by sway.
+    # but since my setup isolates every task from sway via systemd-user (See home-manager config)
+    # everything else will run under user@1000.service
     "session-2.scope" = {
       overrideStrategy = "asDropin";
       text  = ''
