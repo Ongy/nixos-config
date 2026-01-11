@@ -30,6 +30,7 @@
 
     mtr
     htop
+    usbutils
 
     tmux
     dig
