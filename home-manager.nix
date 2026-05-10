@@ -40,6 +40,7 @@ done
 
       anki
       libreoffice
+      jujutsu
   
       bitwarden
 
