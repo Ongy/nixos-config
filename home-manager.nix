@@ -126,6 +126,19 @@ done
   
     programs.zsh = {
       enable = true;
+      history = {
+        append = true;
+        size = 100000000;
+        save = 100000000;
+      };
+      historySubstringSearch.enable = true;
+      autosuggestion = {
+        enable = true;
+      #  async = true;
+      };
+      syntaxHighlighting = {
+        enable = true;
+      };
     };
     programs.swaylock.enable = true;
     programs.obs-studio = {
