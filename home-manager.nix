@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, antigravity-cli-nix, ... }:
 let
   desktop-notifiers = (pkgs.callPackage ./notifiers.nix {});
 in
@@ -50,6 +50,7 @@ done
       buildah
 
       desktop-notifiers   
+      antigravity-cli-nix.packages.${pkgs.system}.default
     ];
     home.sessionVariables = {
       QT_QPA_PLATFORM="wayland";
