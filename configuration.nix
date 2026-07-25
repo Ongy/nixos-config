@@ -36,6 +36,10 @@
     };
   };
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-39.8.10"
+  ];
+
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -117,12 +121,12 @@
     ];
   };
 
-  services.logind.extraConfig = ''
-    HandlePowerKey=suspend
-  '';
-#   services.logind.settings.Login = {
-#     HandlePowerKey="suspend";
-#   };
+#   services.logind.extraConfig = ''
+#     HandlePowerKey=suspend
+#   '';
+  services.logind.settings.Login = {
+    HandlePowerKey="suspend";
+  };
 
   # required for buildah...
   environment.etc."containers/policy.json" = {

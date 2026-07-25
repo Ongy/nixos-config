@@ -32,7 +32,7 @@ done
       alacritty
       pavucontrol
   
-      tor-browser-bundle-bin
+      tor-browser
       firefox
       chromium
       qutebrowser
@@ -42,7 +42,7 @@ done
       libreoffice
       jujutsu
   
-      bitwarden
+      bitwarden-desktop
 
       kubectl
       k9s
@@ -115,9 +115,11 @@ done
 
     programs.git = {
       enable = true;
-      userName = "Markus Ongyerth";
-      userEmail = "ongyerth@google.com";
-      extraConfig = {
+      settings= {
+        user = {
+          name = "Markus Ongyerth";
+          email = "ongyerth@google.com";
+        };
         safe.directory = "/etc/nixos";
         push.autoSetupRemote = "true";
         push.default = "upstream";
