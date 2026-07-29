@@ -19,5 +19,9 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    sendspin
+  };
+
   hardware.enableRedistributableFirmware = true;
 }
