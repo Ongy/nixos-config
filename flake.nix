@@ -65,9 +65,10 @@
     nixosConfigurations.pi = nixpkgs.lib.nixosSystem {
       system = "aarch64-linux";
       modules = [
-        ./configuration-pi.nix
         ./common.nix
         ./server.nix
+        ./configuration-pi.nix
+        nixos-hardware.nixosModules.raspberry-pi-4
 
         {
           networking = {

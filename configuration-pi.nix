@@ -2,8 +2,7 @@
 
 {
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
-    kernelParams = [ "snd_bcm2835.enable_hdmi=1" "snd_bcm2835.enable_headphones=1" ];
+    kernelParams = [ "snd_bcm2835.enable_hdmi=1" "snd_bcm2835.enable_headphones=0" ];
     initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
     loader = {
       grub.enable = false;
@@ -19,9 +18,19 @@
     };
   };
 
+  hardware.alsa.enable = true;
+
   environment.systemPackages = with pkgs; [
-    sendspin
-  };
+    (callPackage ./sendspin-go.nix {})
+    alsa-lib
+  ];
+
+  networking.firewall.extraInputRules = [
+    "tcp dport 8927 accept"
+    "tcp dport 8928 accept"
+    "udp dport 5353 accept"
+    "udp sport 5353 accept"
+  ];
 
   hardware.enableRedistributableFirmware = true;
 }
