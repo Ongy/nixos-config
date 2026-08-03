@@ -51,6 +51,7 @@
     layout = "us";
     variant = "intl";
   };
+  services.davfs2.enable = true;
 
   # Configure console keymap
   console.keyMap = "us-acentos";
