@@ -10,6 +10,11 @@
     };
   };
 
+  hardware.raspberry-pi.firmware = {
+    enable = true;
+    uboot.enable = true;
+  };
+
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/NIXOS_SD";
