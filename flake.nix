@@ -68,6 +68,7 @@
         ./common.nix
         ./server.nix
         ./configuration-pi.nix
+        ./sendspin.nix
         nixos-hardware.nixosModules.raspberry-pi-4
 
         {

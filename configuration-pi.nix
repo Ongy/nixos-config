@@ -25,17 +25,5 @@
 
   hardware.alsa.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    (callPackage ./sendspin-go.nix {})
-    alsa-lib
-  ];
-
-  networking.firewall.extraInputRules = [
-    "tcp dport 8927 accept"
-    "tcp dport 8928 accept"
-    "udp dport 5353 accept"
-    "udp sport 5353 accept"
-  ];
-
   hardware.enableRedistributableFirmware = true;
 }
