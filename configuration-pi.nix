@@ -8,6 +8,12 @@
       grub.enable = false;
       generic-extlinux-compatible.enable = true;
     };
+    extraModprobeConfig = ''
+      options vc4 enable_v3d=0
+    '';
+    blacklistedKernelModules = [
+      "v3d"
+    ];
   };
 
   hardware.raspberry-pi.firmware = {
