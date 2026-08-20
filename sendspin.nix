@@ -2,7 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
-    (callPackage ./sendspin-go.nix {})
+    sendspin-go
     alsa-lib
   ];
 
