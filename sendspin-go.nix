@@ -23,9 +23,12 @@ buildGoModule (finalAttrs: {
 
   __structuredAttrs = true;
 
-  vendorHash = "sha256-QAmC6bgOSlV8we9j3rDQ9V3sLdSvELu8zzn5UAw/uIY=";
+  vendorHash = "sha256-4V/EQ07jMKiEHPYm4s/U8zafD/IEoRjdYKHHmuHtD1Y=";
 
   nativeBuildInputs = [ pkg-config ];
+  patches = [
+    ./sendspin.patch
+  ];
 
   buildInputs = [
     alsa-lib
