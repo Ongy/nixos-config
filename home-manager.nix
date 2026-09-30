@@ -25,6 +25,7 @@ done
       mosh
       xss-lock
       wl-mirror
+      wvkbd
 
       grim
       slurp
@@ -102,6 +103,14 @@ done
            "${modifier}+less"        = "move workspace to output left";
            "${modifier}+x"           = "exec ${pkgs.swaylock}/bin/swaylock --color 001100 --show-failed-attempts --image /home/ongy/background.png --scaling center";
          };
+         bindswitches = {
+	  "tablet:on" = {
+            action = "exec systemctl --user start onscreen-keyboard";
+          };
+	  "tablet:off" = {
+            action = "exec systemctl --user stop onscreen-keyboard";
+          };
+	 };
          keycodebindings = let
            modifier = config.wayland.windowManager.sway.config.modifier;
          in lib.mkOptionDefault {
@@ -206,6 +215,12 @@ done
         };
         Service = { ExecStart = "/etc/profiles/per-user/ongy/bin/screen-rotator"; };
         Install = { WantedBy = ["sway-session.target"]; };
+      };
+      onscreen-keyboard = {
+        Unit = {
+          Description = "Utility service to launch an onscreen keyboard";
+        };
+        Service = { ExecStart = "/etc/profiles/per-user/ongy/bin/wvkbd-mobintl --non-exclusive"; };
       };
       swaylock = {
         Unit = {
