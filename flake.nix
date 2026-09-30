@@ -15,10 +15,14 @@
       url = "github:bigFin/antigravity-cli-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    antigravity-nix = {
+      url = "github:jacopone/antigravity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, lanzaboote, antigravity-cli-nix }: {
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, lanzaboote, antigravity-cli-nix, antigravity-nix }: {
     nixosConfigurations.ongy-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -31,7 +35,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit antigravity-cli-nix; };
+          home-manager.extraSpecialArgs = { inherit antigravity-cli-nix; inherit antigravity-nix; };
           home-manager.users.ongy = ./home-manager.nix;
         }
 
