@@ -23,7 +23,6 @@ done
 '')
       swaybg
       mosh
-      squeekboard
       xss-lock
       wl-mirror
 
