@@ -25,6 +25,7 @@ done
       mosh
       squeekboard
       xss-lock
+      wl-mirror
 
       grim
       slurp
