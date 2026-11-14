@@ -48,11 +48,12 @@ done
       kubectl
       k9s
 
-      buildah
-
       desktop-notifiers   
       antigravity-cli-nix.packages.${pkgs.system}.default
       antigravity-nix.packages.${pkgs.system}.default
+
+      blender
+      prusa-slicer
     ];
     home.sessionVariables = {
       QT_QPA_PLATFORM="wayland";
@@ -220,7 +221,7 @@ done
         Unit = {
           Description = "Utility service to launch an onscreen keyboard";
         };
-        Service = { ExecStart = "/etc/profiles/per-user/ongy/bin/wvkbd-mobintl --non-exclusive"; };
+        Service = { ExecStart = "/etc/profiles/per-user/ongy/bin/wvkbd-mobintl -H 240 -L 240 --non-exclusive"; };
       };
       swaylock = {
         Unit = {
@@ -229,6 +230,16 @@ done
         };
         Service = {
           ExecStart = "${pkgs.xss-lock}/bin/xss-lock -- ${pkgs.swaylock}/bin/swaylock --color 001100 --show-failed-attempts --image \${HOME}/background.png --scaling center";
+        };
+        Install = { WantedBy = ["sway-session.target"]; };
+      };
+      suspend-mute = {
+        Unit = {
+          Description = "Mute audio on suspend";
+          After = ["graphical-session.target"];
+        };
+        Service = {
+          ExecStart = "${pkgs.xss-lock}/bin/xss-lock -- ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_SINK@ 1";
         };
         Install = { WantedBy = ["sway-session.target"]; };
       };
