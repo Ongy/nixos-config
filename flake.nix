@@ -22,7 +22,25 @@
 
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, lanzaboote, antigravity-cli-nix, antigravity-nix }: {
+ outputs = { self, nixpkgs, nixos-hardware, home-manager, lanzaboote, antigravity-cli-nix, antigravity-nix }: 
+    let
+      sendspin-overlay = final: prev: {
+        sendspin-go = prev.sendspin-go.overrideAttrs (oldAttrs: rec {
+          version = "1.8.0";
+          src = prev.fetchFromGitHub {
+            owner = "Sendspin";
+            repo = "sendspin-go";
+            tag = "v${version}";
+            hash = "sha256-T0lOczyUi6YvlMqbrdAnWpFmTqJ7fVKm5yOeZueLwkg=";
+          };
+          vendorHash = "sha256-4V/EQ07jMKiEHPYm4s/U8zafD/IEoRjdYKHHmuHtD1Y=";
+          patches = (oldAttrs.patches or [ ]) ++ [
+            ./sendspin.patch
+          ];
+        });
+      };
+    in {
+      overlays.default = sendspin-overlay;
     nixosConfigurations.ongy-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
