@@ -82,5 +82,20 @@
         }
       ];
     };
+    nixosConfigurations.la-frite = nixpkgs.lib.nixosSystem {
+      system = "aarch64-linux";
+      modules = [
+        ./common.nix
+        ./server.nix
+        ./sendspin.nix
+        ./la-frite.nix
+
+        {
+          networking = {
+            hostName = "la-frite";
+          };
+        }
+      ];
+    };
   };
 }
