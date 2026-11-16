@@ -8,6 +8,21 @@
     systemWide = true;
     alsa.enable = true;
     pulse.enable = true;
+    # miniaudio's PulseAudio backend doesn't map PA_SAMPLE_S24_32LE (used by
+    # 24-in-32-bit sinks like Amlogic/la-frite) and fails InitDevice with MA_ERROR.
+    extraConfig.pipewire-pulse."15-force-s16-info" = {
+      "pulse.rules" = [
+        {
+          matches = [
+            { "application.process.binary" = "sendspin-go"; }
+            { "application.process.binary" = ".sendspin-go-wrapped"; }
+          ];
+          actions = {
+            quirks = [ "force-s16-info" ];
+          };
+        }
+      ];
+    };
   };
 
   users.users.ongy.extraGroups = [ "pipewire" ];
