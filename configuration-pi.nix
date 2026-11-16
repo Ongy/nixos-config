@@ -29,7 +29,5 @@
     };
   };
 
-  hardware.alsa.enable = true;
-
   hardware.enableRedistributableFirmware = true;
 }
